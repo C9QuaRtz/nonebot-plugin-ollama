@@ -7,19 +7,22 @@
 ### 主要功能
 使用自定义命令前缀进行对话。
 
-当前版本：v0.2.3-c0.1
+当前版本：v0.2.3-c1.0
 
-# 配置项
+# 配置项示例
 ```python
-#config.py
+# config.py
 class ScopedConfig:
-    model: str = "qwen2.5:0.5b"    # 填写所要使用的模型名称
-    url: str = "http://127.0.0.1:11434/"    # 填写ollma所在的地址，形如http://***/
-    min_priority: int = 5    # 填写优先级，数字越小优先级越高，推荐设置为低优先，
-    # 该优先级为clear指令优先级，对话优先级为 min_priority+1
-    max_histories: int = 100    # 填写最大历史对话记录条数
-    listening: str = ["00110721", "10001"] # 填写使用对话功能的群聊号或私聊对方QQ号
-    cmd: str = ["ollama ", "qwen "] # 填写希望机器人回复此消息的命令前缀
+    model: str = "qwen2.5:14b" # 标准响应使用的模型名
+    model_img: str = "llava:7b" # 仅用于响应图片请求的视觉模型名
+    url: str = "http://127.0.0.1:11434/" # 与Ollama的通信地址 本地默认可填 http://127.0.0.1:11434/
+    min_priority: int = 5 # Nonebot 事件优先级
+    max_histories: int = 100 # 某方对话的最大消息记忆数
+    listening_group: str = ["12700721"] # 希望提供服务的群聊号
+    listening_private: str = ["10001"] # 希望提供服务的私聊对象QQ号
+    cmd: str = ["ollama"] # 触发消息处理的消息前缀
+    cmd_img: str = ["ollama_img"] # 改用视觉LLM处理的消息前缀
+    user: str = [["10001", "马化腾"]] # 自定义对象QQ号所代表的名字
 ```
 
 推荐先修改你所使用模型Modelfile的System项，调整后能够更加胜任工作。
@@ -35,8 +38,8 @@ class ScopedConfig:
 
 ### 未来开发方向：
 
-1. 自动切换llava进行图片处理
-2. 在config.py内添加对Modelfile的支持
+~~1. 自动切换llava进行图片处理~~
+~~2. 在config.py内添加对Modelfile的支持~~ 已放弃，请自行参阅官方文档，本项需求定位不属于本项目
 3. 聊天记录（日志）导出
 
 最终目标：提供API，为其他开发者实现跨插件事件响应与处理。
